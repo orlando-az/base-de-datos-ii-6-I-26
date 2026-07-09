@@ -1,0 +1,16 @@
+# Entornos y configuración local
+.env
+.vscode/
+.idea/
+*.DS_Store
+
+# Dumps o backups pesados de base de datos (agregar manualmente si se necesitan versionar)
+*.dump
+*.backup
+
+# Archivos temporales
+*.tmp
+*.log
+
+# DBeaver
+.dbeaver/
