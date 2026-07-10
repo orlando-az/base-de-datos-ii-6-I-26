@@ -1,5 +1,57 @@
 # Laboratorio — Sistema de Gestión de Condominio
 
+**Base de Datos II (SIS-0126)** · Ingeniería de Sistemas · UPDS
+
+---
+
+## JOINs: concepto y tipos
+
+Un **JOIN** combina filas de dos o más tablas a partir de una condición de relación, generalmente entre una clave primaria y su clave foránea correspondiente. Sin JOINs, cada consulta quedaría limitada a una sola tabla, lo cual resulta insuficiente en un modelo relacional normalizado como el de este condominio (departamentos, propietarios, expensas, pagos, alquileres).
+
+Sintaxis general:
+
+```sql
+SELECT columnas
+FROM tabla_a a
+[TIPO DE JOIN] tabla_b b ON a.columna = b.columna;
+```
+
+| Tipo         | Devuelve                                                                   | Filas sin coincidencia                 |
+| ------------ | -------------------------------------------------------------------------- | -------------------------------------- |
+| `INNER JOIN` | Solo las filas donde existe coincidencia en ambas tablas                   | Se excluyen de ambos lados             |
+| `LEFT JOIN`  | Todas las filas de la tabla izquierda, más las coincidencias de la derecha | Lado derecho aparece con `NULL`        |
+| `RIGHT JOIN` | Todas las filas de la tabla derecha, más las coincidencias de la izquierda | Lado izquierdo aparece con `NULL`      |
+| `FULL JOIN`  | Todas las filas de ambas tablas, coincidan o no                            | Ambos lados pueden aparecer con `NULL` |
+| `CROSS JOIN` | Producto cartesiano: cada fila de A combinada con cada fila de B           | No aplica condición `ON`               |
+
+**INNER JOIN** — el más común; se usa cuando solo interesan los registros relacionados en ambas tablas.
+
+```sql
+SELECT d.numero, p.nombre
+FROM departamento d
+INNER JOIN propietario p ON d.propietario_id = p.id;
+```
+
+**LEFT JOIN** — se usa cuando se necesita conservar todos los registros de la tabla principal, tengan o no relación. Es la base para detectar ausencias (por ejemplo, propietarios sin departamentos, o expensas sin pagos).
+
+```sql
+SELECT p.nombre, d.numero
+FROM propietario p
+LEFT JOIN departamento d ON d.propietario_id = p.id;
+```
+
+**RIGHT JOIN** — equivalente a un `LEFT JOIN` con las tablas invertidas; se prefiere mantener siempre el mismo orden de tablas y usar `LEFT JOIN` por legibilidad, salvo que el enunciado exija explícitamente `RIGHT JOIN`.
+
+**FULL JOIN** — combina el comportamiento de `LEFT` y `RIGHT`; útil para auditorías donde interesa ver huérfanos en ambos sentidos.
+
+**CROSS JOIN** — no usa condición de relación; multiplica todas las filas de una tabla por todas las de otra. Se usa poco en consultas de negocio y mucho para generar combinaciones (por ejemplo, todas las fechas contra todos los departamentos).
+
+Puntos clave a tener en cuenta:
+
+- El tipo de JOIN se elige según si los registros "huérfanos" (sin relación) deben mostrarse o no.
+- Es posible encadenar varios JOINs en una misma consulta, mezclando tipos según la necesidad de cada tabla.
+- Cuando se filtra sobre una columna del lado "opcional" de un `LEFT JOIN`, la condición debe ir en el `ON` y no en el `WHERE`, para no convertir el `LEFT JOIN` en un `INNER JOIN` de forma implícita.
+
 ---
 
 ## Ejercicio 1
@@ -38,7 +90,6 @@ Mostrar los pagos cuyo monto pagado sea mayor a 400 Bs y menor a 650 Bs, realiza
 
 ```sql
 
-
 ```
 
 ---
@@ -59,7 +110,6 @@ Mostrar todos los propietarios y — si tienen — sus departamentos con el nomb
 
 ```sql
 
-
 ```
 
 ---
@@ -69,8 +119,6 @@ Mostrar todos los propietarios y — si tienen — sus departamentos con el nomb
 Mostrar todas las expensas y — si tienen — sus pagos registrados, incluyendo número de departamento y nombre del condominio. Las expensas sin pagos deben aparecer con NULL en los campos del pago.
 
 ```sql
-
-
 
 ```
 
@@ -82,8 +130,6 @@ Mostrar nombre del inquilino, número de departamento, nombre del condominio, no
 
 ```sql
 
-
-
 ```
 
 ---
@@ -94,8 +140,6 @@ Contar cuántas expensas tiene cada departamento por estado, mostrando número d
 
 ```sql
 
-
-
 ```
 
 ---
@@ -105,7 +149,5 @@ Contar cuántas expensas tiene cada departamento por estado, mostrando número d
 Mostrar nombre del condominio, número de departamento, nombre del propietario, nombre del inquilino activo y el total de expensas pendientes del departamento, solo para condominios ubicados en La Paz.
 
 ```sql
-
-
 
 ```
