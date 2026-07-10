@@ -54,6 +54,10 @@ Puntos clave a tener en cuenta:
 
 ---
 
+## Parte A — Repaso de filtros (sin JOIN)
+
+Los siguientes cuatro ejercicios no requieren combinar tablas: son un repaso de filtros (`WHERE`, `BETWEEN`, `LIKE`, `IN`) antes de introducir JOINs en la Parte B.
+
 ## Ejercicio 1
 
 Listar todos los departamentos del piso 2 o 3 mostrando su número, piso y superficie, ordenados por piso ascendente y superficie descendente.
@@ -94,6 +98,10 @@ Mostrar los pagos cuyo monto pagado sea mayor a 400 Bs y menor a 650 Bs, realiza
 
 ---
 
+## Parte B — JOINs
+
+A partir de aquí cada ejercicio combina dos o más tablas. El orden avanza de INNER JOIN simple (5), a LEFT JOIN simple (6), a LEFT JOIN combinado con INNER JOIN en 3+ tablas (7), a JOIN + agregación (8), a JOIN múltiple de 4 tablas (9), hasta el ejercicio integrador final (10).
+
 ## Ejercicio 5
 
 Listar número de departamento, piso, superficie y nombre del condominio para departamentos del piso 3 o con superficie menor a 60 m², ordenados por nombre del condominio ascendente.
@@ -116,7 +124,7 @@ Mostrar todos los propietarios y — si tienen — sus departamentos con el nomb
 
 ## Ejercicio 7
 
-Mostrar todas las expensas y — si tienen — sus pagos registrados, incluyendo número de departamento y nombre del condominio. Las expensas sin pagos deben aparecer con NULL en los campos del pago.
+Mostrar todas las expensas y — si tienen — sus pagos registrados, incluyendo número de departamento, nombre del condominio y nombre del propietario del departamento. Las expensas sin pagos deben aparecer con NULL en los campos del pago. (Requiere combinar LEFT JOIN con expensa→pago e INNER JOIN con departamento→condominio y departamento→propietario.)
 
 ```sql
 
@@ -126,7 +134,7 @@ Mostrar todas las expensas y — si tienen — sus pagos registrados, incluyendo
 
 ## Ejercicio 8
 
-Mostrar nombre del inquilino, número de departamento, nombre del condominio, nombre del propietario y fecha de inicio y fin, solo para alquileres que ya hayan finalizado (activo = FALSE), ordenados por fecha de fin descendente.
+Contar cuántas expensas tiene cada departamento por estado, mostrando número de departamento, nombre del condominio, estado y cantidad, ordenado por cantidad descendente.
 
 ```sql
 
@@ -136,7 +144,7 @@ Mostrar nombre del inquilino, número de departamento, nombre del condominio, no
 
 ## Ejercicio 9
 
-Contar cuántas expensas tiene cada departamento por estado, mostrando número de departamento, nombre del condominio, estado y cantidad, ordenado por cantidad descendente.
+Mostrar nombre del inquilino, número de departamento, nombre del condominio, nombre del propietario y fecha de inicio y fin, solo para alquileres que ya hayan finalizado (activo = FALSE), ordenados por fecha de fin descendente.
 
 ```sql
 
