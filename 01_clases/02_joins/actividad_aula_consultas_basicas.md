@@ -63,7 +63,10 @@ Los siguientes cuatro ejercicios no requieren combinar tablas: son un repaso de 
 Listar todos los departamentos del piso 2 o 3 mostrando su número, piso y superficie, ordenados por piso ascendente y superficie descendente.
 
 ```sql
-
+SELECT d.numero ,d.piso ,d.superficie_m2
+FROM departamento d
+WHERE d.piso = 2 OR d.piso =3
+ORDER BY d.piso asc , d.superficie_m2 DESC;
 ```
 
 ---
@@ -73,7 +76,10 @@ Listar todos los departamentos del piso 2 o 3 mostrando su número, piso y super
 Mostrar los propietarios cuyo nombre contenga la letra 'o' y tengan teléfono registrado, ordenados alfabéticamente.
 
 ```sql
-
+SELECT p.nombre ,p.telefono
+FROM propietario p
+WHERE p.nombre iLIKE '%c%'
+ORDER BY p.nombre
 ```
 
 ---
@@ -83,7 +89,12 @@ Mostrar los propietarios cuyo nombre contenga la letra 'o' y tengan teléfono re
 Listar las expensas con estado 'pendiente' o 'vencida' cuyo monto esté entre 400 y 700 Bs, mostrando id de departamento, monto, fecha de vencimiento y estado, ordenadas por fecha de vencimiento ascendente.
 
 ```sql
-
+SELECT e.id_departamento ,e.monto ,e.fecha_vencimiento
+,e.estado
+FROM expensa e
+WHERE (e.monto >=400 and e.monto <=700)
+AND (e.estado IN ('pendiente','vencida'))
+ORDER BY e.monto;
 ```
 
 ---
@@ -93,7 +104,12 @@ Listar las expensas con estado 'pendiente' o 'vencida' cuyo monto esté entre 40
 Mostrar los pagos cuyo monto pagado sea mayor a 400 Bs y menor a 650 Bs, realizados con método 'transferencia' o 'QR', ordenados por fecha descendente.
 
 ```sql
-
+SELECT p.monto_pagado ,p.fecha_pago
+FROM pago p
+WHERE p.monto_pagado BETWEEN 400 AND 650
+AND (p.metodo_pago ='transferencia' OR
+p.metodo_pago ='QR')
+ORDER BY p.fecha_pago desc
 ```
 
 ---
@@ -107,7 +123,13 @@ A partir de aquí cada ejercicio combina dos o más tablas. El orden avanza de I
 Listar número de departamento, piso, superficie y nombre del condominio para departamentos del piso 3 o con superficie menor a 60 m², ordenados por nombre del condominio ascendente.
 
 ```sql
-
+SELECT  d.numero ,d.piso , d.superficie_m2 ,
+c.nombre AS condominio
+FROM departamento d
+INNER JOIN condominio c
+ON c.id = d.id_condominio
+WHERE d.piso = 3 OR d.superficie_m2 <60
+ORDER BY c.nombre
 ```
 
 ---
@@ -117,7 +139,11 @@ Listar número de departamento, piso, superficie y nombre del condominio para de
 Mostrar todos los propietarios y — si tienen — sus departamentos con el nombre del condominio. Los propietarios sin departamentos deben aparecer con NULL.
 
 ```sql
-
+SELECT p.id, p.nombre , d.numero
+FROM propietario p
+LEFT JOIN departamento d
+ON d.id_propietario = p.id
+ORDER BY 1;
 ```
 
 ---
@@ -137,7 +163,11 @@ Mostrar todas las expensas y — si tienen — sus pagos registrados, incluyendo
 Contar cuántas expensas tiene cada departamento por estado, mostrando número de departamento, nombre del condominio, estado y cantidad, ordenado por cantidad descendente.
 
 ```sql
-
+SELECT d.numero , count(*)
+FROM expensa e
+INNER JOIN departamento d ON
+e.id_departamento = d.id
+GROUP BY d.numero
 ```
 
 ---
