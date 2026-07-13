@@ -182,17 +182,7 @@ ORDER BY esquema, tabla;
 -- Escribir consulta aquí
 ```
 
-### Ejercicio 2 — Proveedores de riesgo
-
-**Orden:** Compras necesita ubicar proveedores de riesgo. Mostrar razón social, calificación de crédito y si son preferidos, para proveedores activos con calificación 3 o peor, o que no sean preferidos.
-
-**Tablas:** purchasing.vendor, purchasing.productvendor
-
-```sql
--- Escribir consulta aquí
-```
-
-### Ejercicio 3 — Catálogo por categoría
+### Ejercicio 2 — Catálogo por categoría
 
 **Orden:** Producción quiere revisar el catálogo por categoría. Mostrar producto, subcategoría, categoría y precio de lista, para productos de categoría "Bikes" o "Components" con precio mayor a 500.
 
@@ -202,17 +192,47 @@ ORDER BY esquema, tabla;
 -- Escribir consulta aquí
 ```
 
-### Ejercicio 4 — Pedidos grandes por territorio
+### Ejercicio 3 — Pedidos grandes por territorio
 
-**Orden:** Ventas necesita identificar pedidos grandes de clientes particulares. Mostrar nombre completo del cliente, número de orden y monto total, para pedidos con totaldue mayor a 5000 realizados en el territorio "Northwest" o "Southwest".
+**Orden:** Ventas necesita identificar pedidos grandes de clientes particulares. Mostrar nombre completo del cliente, número de orden y monto total, para pedidos con totaldue mayor a 5000 realizados en el territorio con ID 1 o 4.
 
-**Tablas:** sales.salesorderheader, sales.customer, person.person, sales.salesterritory
+**Tablas:** sales.salesorderheader, sales.customer, person.person
 
 ```sql
 -- Escribir consulta aquí
 ```
 
-### Ejercicio 5 — Gasto por proveedor y producto
+### Ejercicio 4 — Empleados con dirección registrada
+
+**Orden:** RR.HH. necesita una lista de contacto completa. Mostrar nombre completo y fecha de contratación de los empleados que tienen al menos una dirección registrada en el sistema, mostrando cada empleado una sola vez.
+
+**Tablas:** humanresources.employee, person.person, person.businessentityaddress
+
+```sql
+-- Escribir consulta aquí
+```
+
+### Ejercicio 5 — Inventario cruzado con proveedores
+
+**Orden:** Logística quiere revisar qué productos ya tienen un proveedor preferido asignado. Mostrar producto y el proveedor con estatus preferido para ese producto, filtrando solo proveedores activos con calificación de crédito 1 o 2.
+
+**Tablas:** production.product, purchasing.productvendor, purchasing.vendor
+
+```sql
+-- Escribir consulta aquí
+```
+
+### Ejercicio 6 — Proveedores de riesgo
+
+**Orden:** Compras necesita ubicar proveedores de riesgo. Mostrar razón social, calificación de crédito, si son preferidos y la cantidad de productos distintos que les compran, para proveedores activos con calificación 3 o peor, o que no sean preferidos.
+
+**Tablas:** purchasing.vendor, purchasing.productvendor
+
+```sql
+-- Escribir consulta aquí
+```
+
+### Ejercicio 7 — Gasto por proveedor y producto
 
 **Orden:** Compras quiere saber qué proveedores concentran el gasto en un producto puntual. Mostrar proveedor, producto y monto total comprado, agrupando por ambos, y quedándose solo con combinaciones donde el total comprado supere 10000 y haya más de 3 órdenes.
 
@@ -222,31 +242,13 @@ ORDER BY esquema, tabla;
 -- Escribir consulta aquí
 ```
 
-### Ejercicio 6 — Cumplimiento de órdenes de trabajo por categoría
+### Ejercicio 8 — Cumplimiento de órdenes de trabajo por subcategoría
 
-**Orden:** Producción quiere medir cumplimiento por categoría. Mostrar categoría, cantidad total de órdenes de trabajo y cantidad de órdenes retrasadas (enddate > duedate), considerando solo órdenes con startdate en 2013, y mostrando únicamente categorías con más de 50 órdenes de trabajo en total.
+**Orden:** Producción quiere identificar qué subcategorías concentran más retrasos. Mostrar subcategoría y cantidad de órdenes de trabajo retrasadas (enddate mayor a duedate), considerando solo órdenes con startdate en 2013, y mostrando únicamente subcategorías con más de 5 órdenes retrasadas.
 
-**Tablas:** production.workorder, production.product, production.productsubcategory, production.productcategory
+**Nota para el docente:** validar este umbral contra los datos reales antes de la clase; al agrupar por subcategoría (en vez de categoría) el volumen por grupo baja y puede requerir ajustar el número.
 
-```sql
--- Escribir consulta aquí
-```
-
-### Ejercicio 7 — Desempeño de vendedores por departamento
-
-**Orden:** Gerencia comercial quiere ver el desempeño de cada vendedor junto a su ubicación organizacional. Mostrar nombre completo del vendedor, departamento actual (asignación vigente) y total vendido en 2013, filtrando vendedores con más de 20 órdenes en ese año.
-
-**Tablas:** sales.salesperson, person.person, humanresources.employeedepartmenthistory, humanresources.department, sales.salesorderheader
-
-```sql
--- Escribir consulta aquí
-```
-
-### Ejercicio 8 — Inventario cruzado con proveedores
-
-**Orden:** Logística quiere cruzar inventario con proveedores. Mostrar producto, ubicación de almacenamiento, cantidad en inventario y proveedor preferido para ese producto, filtrando solo ubicaciones con costo (costrate) mayor a 0 y productos con más de 100 unidades en esa ubicación.
-
-**Tablas:** production.product, production.productinventory, production.location, purchasing.productvendor, purchasing.vendor
+**Tablas:** production.workorder, production.product, production.productsubcategory
 
 ```sql
 -- Escribir consulta aquí
@@ -254,19 +256,19 @@ ORDER BY esquema, tabla;
 
 ### Ejercicio 9 — Productos sin ventas
 
-**Orden:** Producción quiere detectar productos muertos en catálogo. Listar productos que nunca registraron una venta, junto con su categoría, excluyendo productos discontinuados (discontinueddate no nulo).
+**Orden:** Producción quiere detectar productos muertos en catálogo. Listar productos que nunca registraron una venta, junto con su subcategoría, excluyendo productos discontinuados (discontinueddate no nulo).
 
-**Tablas:** production.product, sales.salesorderdetail, production.productsubcategory, production.productcategory
+**Tablas:** production.product, sales.salesorderdetail, production.productsubcategory
 
 ```sql
 -- Escribir consulta aquí
 ```
 
-### Ejercicio 10 — Empleados sin dirección registrada
+### Ejercicio 10 — Desempeño de vendedores por departamento
 
-**Orden:** RR.HH. necesita depurar datos de contacto. Listar empleados que no tienen ninguna dirección registrada en el sistema, mostrando su nombre completo y fecha de contratación.
+**Orden:** Gerencia comercial quiere ver el desempeño de cada vendedor junto a su departamento actual. Mostrar nombre completo del vendedor, ID de departamento actual (asignación vigente) y total vendido en 2013, filtrando vendedores con más de 20 órdenes en ese año.
 
-**Tablas:** humanresources.employee, person.person, person.businessentityaddress
+**Tablas:** sales.salesperson, person.person, humanresources.employeedepartmenthistory, sales.salesorderheader
 
 ```sql
 -- Escribir consulta aquí
