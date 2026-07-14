@@ -296,3 +296,33 @@ AND soh.totaldue >5000
 ```sql
 -- Escribir consulta aquí
 ```
+
+### Ejercicio 11 — Cadena de compras completa
+
+**Orden:** Compras quiere un reporte completo de qué se compró, a quién, y en qué categoría cae cada producto. Mostrar razón social del proveedor, número de orden de compra, producto, subcategoría, categoría y el monto de la línea (cantidad × precio unitario), solo para órdenes de compra completadas con monto de línea mayor a 1000.
+
+**Tablas:** purchasing.purchaseorderheader, purchasing.vendor, purchasing.purchaseorderdetail, production.product, production.productsubcategory, production.productcategory
+
+```sql
+-- Escribir consulta aquí
+```
+
+### Ejercicio 12 — Clientes destacados, segundo nivel
+
+**Orden:** Ventas ya tiene identificado a los cinco clientes con mayor gasto histórico y los está gestionando aparte con cuentas dedicadas. Mostrar nombre completo del cliente, territorio y monto total gastado para el siguiente grupo de diez clientes en el ranking de gasto (es decir, del puesto 6 al 15), para evaluarlos como candidatos a ese mismo programa.
+
+**Tablas:** sales.customer, sales.salesorderheader, person.person, sales.salesterritory
+
+```sql
+-- Escribir consulta aquí
+```
+
+### Ejercicio 13 — Vendedores, territorio y desempeño
+
+**Orden:** Gerencia comercial quiere cruzar el desempeño de ventas de 2014 con la región asignada a cada vendedor y su puesto actual en RR.HH. Mostrar nombre completo del vendedor, territorio, puesto (jobtitle) y total vendido en 2014, solo para vendedores con más de 15 órdenes en el año.
+
+**Tablas:** sales.salesperson, person.person, humanresources.employee, sales.salesterritory, sales.salesorderheader
+
+```sql
+-- Escribir consulta aquí
+```
