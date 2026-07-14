@@ -179,7 +179,13 @@ ORDER BY esquema, tabla;
 **Tablas:** humanresources.employee, person.person
 
 ```sql
--- Escribir consulta aquí
+SELECT p.firstname ,p.lastname
+,e.jobtitle , e.hiredate
+FROM person.person p
+INNER JOIN humanresources.employee e
+ON e.businessentityid = p.businessentityid
+WHERE e.jobtitle LIKE '%Engineer%' OR
+e.jobtitle LIKE '%Manager%';
 ```
 
 ### Ejercicio 2 — Catálogo por categoría
@@ -189,7 +195,16 @@ ORDER BY esquema, tabla;
 **Tablas:** production.product, production.productsubcategory, production.productcategory
 
 ```sql
--- Escribir consulta aquí
+SELECT p."name" AS producto,
+psc."name" AS subcategoria,
+pc."name" AS categoria, p.listprice AS listaprecio
+FROM production.product p
+INNER JOIN production.productsubcategory psc
+ON p.productsubcategoryid = psc.productsubcategoryid
+INNER JOIN production.productcategory pc
+ON psc.productcategoryid = pc.productcategoryid
+WHERE (pc."name" ='Bikes' OR pc."name" = 'Components')
+AND p.listprice > 500
 ```
 
 ### Ejercicio 3 — Pedidos grandes por territorio
@@ -199,7 +214,15 @@ ORDER BY esquema, tabla;
 **Tablas:** sales.salesorderheader, sales.customer, person.person
 
 ```sql
--- Escribir consulta aquí
+SELECT soh.territoryid , soh.totaldue,
+p.firstname ,p.lastname
+FROM sales.salesorderheader soh
+INNER JOIN sales.customer c
+ON c.customerid = soh.customerid
+INNER JOIN person.person p
+ON p.businessentityid = soh.customerid
+WHERE soh.territoryid = 1 OR soh.territoryid =4
+AND soh.totaldue >5000
 ```
 
 ### Ejercicio 4 — Empleados con dirección registrada
