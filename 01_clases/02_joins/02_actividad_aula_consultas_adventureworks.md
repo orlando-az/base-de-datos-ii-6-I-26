@@ -232,7 +232,17 @@ AND soh.totaldue >5000
 **Tablas:** humanresources.employee, person.person, person.businessentityaddress
 
 ```sql
--- Escribir consulta aquí
+SELECT DISTINCT
+p.firstname  || ' ' || p.lastname AS nombreCompleto,
+e.hiredate
+FROM humanresources.employee e
+INNER JOIN person.person p
+ON p.businessentityid = e.businessentityid
+INNER JOIN person.businessentity b
+ON b.businessentityid = p.businessentityid
+INNER JOIN person.businessentityaddress bea
+ON bea.businessentityid = b.businessentityid
+ORDER BY 1
 ```
 
 ### Ejercicio 5 — Inventario cruzado con proveedores
@@ -242,7 +252,15 @@ AND soh.totaldue >5000
 **Tablas:** production.product, purchasing.productvendor, purchasing.vendor
 
 ```sql
--- Escribir consulta aquí
+SELECT p."name" AS producto,
+v."name" AS vendedor, v.creditrating
+FROM  production.product p
+INNER JOIN purchasing.productvendor pv
+ON pv.productid = p.productid
+INNER JOIN purchasing.vendor v
+ON V.businessentityid = pv.businessentityid
+WHERE v.activeflag = TRUE AND
+v.creditrating BETWEEN 1 AND 2
 ```
 
 ### Ejercicio 6 — Proveedores de riesgo
@@ -252,7 +270,14 @@ AND soh.totaldue >5000
 **Tablas:** purchasing.vendor, purchasing.productvendor
 
 ```sql
--- Escribir consulta aquí
+SELECT v."name" AS vendedor,
+count(distinct pv.productid) AS cantidad
+FROM purchasing.productvendor pv
+INNER JOIN purchasing.vendor v
+ON v.businessentityid = pv.businessentityid
+WHERE v.preferredvendorstatus = TRUE
+AND v.creditrating <=3
+GROUP BY v."name"
 ```
 
 ### Ejercicio 7 — Gasto por proveedor y producto
@@ -262,7 +287,17 @@ AND soh.totaldue >5000
 **Tablas:** purchasing.purchaseorderheader, purchasing.vendor, purchasing.purchaseorderdetail, production.product
 
 ```sql
--- Escribir consulta aquí
+SELECT
+p."name" as producto ,
+sum(poh.subtotal),
+count(pod.orderqty)
+FROM purchasing.purchaseorderheader poh
+INNER JOIN purchasing.purchaseorderdetail pod
+ON poh.purchaseorderid = pod.purchaseorderid
+INNER JOIN production.product p
+ON pod.productid = p.productid
+GROUP BY p."name"
+ORDER BY 3 desc
 ```
 
 ### Ejercicio 8 — Cumplimiento de órdenes de trabajo por subcategoría
