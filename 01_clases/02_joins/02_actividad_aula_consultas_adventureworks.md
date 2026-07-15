@@ -314,7 +314,7 @@ ORDER BY 3 desc
 
 ### Ejercicio 9 — Productos sin ventas
 
-**Orden:** Producción quiere detectar productos muertos en catálogo. Listar productos que nunca registraron una venta, junto con su subcategoría, excluyendo productos discontinuados (discontinueddate no nulo).
+**Orden:** Producción quiere detectar productos muertos en catálogo. Listar productos que nunca registraron una venta, junto con su subcategoría, excluyendo productos discontinuados (discontinueddate).
 
 **Tablas:** production.product, sales.salesorderdetail, production.productsubcategory
 
