@@ -309,7 +309,15 @@ ORDER BY 3 desc
 **Tablas:** production.workorder, production.product, production.productsubcategory
 
 ```sql
--- Escribir consulta aquí
+SELECT  psc."name", count(*) AS cantidad
+FROM production.workorder w
+INNER JOIN production.product p
+ON p.productid = w.productid
+INNER JOIN production.productsubcategory psc
+ON psc.productsubcategoryid = p.productsubcategoryid
+WHERE w.enddate > w.duedate
+AND EXTRACT(YEAR FROM w.startdate)=2013
+GROUP BY psc."name" ;
 ```
 
 ### Ejercicio 9 — Productos sin ventas
@@ -319,7 +327,14 @@ ORDER BY 3 desc
 **Tablas:** production.product, sales.salesorderdetail, production.productsubcategory
 
 ```sql
--- Escribir consulta aquí
+SELECT p."name" AS producto,
+p.productid ,
+sod.salesorderid AS orden
+FROM production.product p
+LEFT JOIN sales.salesorderdetail sod
+ON sod.productid = p.productid
+WHERE sod.salesorderid  IS NULL
+AND p.discontinueddate  IS NULL;
 ```
 
 ### Ejercicio 10 — Desempeño de vendedores por departamento
@@ -329,7 +344,21 @@ ORDER BY 3 desc
 **Tablas:** sales.salesperson, person.person, humanresources.employeedepartmenthistory, sales.salesorderheader
 
 ```sql
--- Escribir consulta aquí
+SELECT p.firstname AS nombre,p.lastname AS apellido,
+count( soh.salesorderid) as cantidad_venta,
+sum(soh.totaldue) AS total_venta
+FROM sales.salesperson sp
+INNER JOIN sales.salesorderheader soh
+ON sp.businessentityid = soh.salespersonid
+INNER JOIN person.person p
+ON P.businessentityid = sp.businessentityid
+INNER JOIN humanresources.employeedepartmenthistory edh
+ON edh.businessentityid = p.businessentityid
+WHERE edh.enddate IS NULL AND
+EXTRACT(YEAR FROM soh.orderdate)=2013
+GROUP BY p.firstname , p.lastname
+HAVING COUNT(soh.salesorderid )>20
+ORDER BY total_venta desc
 ```
 
 ### Ejercicio 11 — Cadena de compras completa
