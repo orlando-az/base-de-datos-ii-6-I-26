@@ -390,3 +390,23 @@ ORDER BY total_venta desc
 ```sql
 -- Escribir consulta aquí
 ```
+
+## Ejercicio 14 — Clasificación de productos por rango de precio
+
+**Orden:** El área comercial necesita una clasificación rápida de los productos del catálogo según su precio de lista para un reporte de posicionamiento. Mostrar el nombre del producto, su categoría y su precio de lista, clasificando cada producto como "Económico" si el precio es menor a 100, "Estándar" si está entre 100 y 500, "Premium" si supera los 500, y "Sin definir" si el precio es nulo o igual a 0. Ordenar por categoría y luego por precio de forma descendente.
+
+**Tablas:** production.product, production.productsubcategory, production.productcategory
+
+```sql
+-- Escribir consulta aquí
+```
+
+## Ejercicio 15 — Estado de cumplimiento de entrega por orden
+
+**Orden:** Logística necesita saber, para cada orden de venta, si la entrega se realizó a tiempo, con retraso o si aún está pendiente de envío. Mostrar el número de orden, la fecha de pedido, la fecha comprometida y la fecha de envío, clasificando cada orden como "Pendiente de envío" si no tiene fecha de envío registrada, "A tiempo" si la fecha de envío es menor o igual a la fecha comprometida, y "Retrasado" si la supera. Contar además cuántas órdenes hay en cada estado y ordenar de mayor a menor cantidad.
+
+**Tablas:** sales.salesorderheader
+
+```sql
+-- Escribir consulta aquí
+```
