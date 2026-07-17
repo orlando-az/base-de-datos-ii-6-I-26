@@ -1,6 +1,6 @@
 # Subconsultas en SQL
 
-**Base de Datos II — SIS-0126 · Sesión 8**
+**Base de Datos II — SIS-0126**
 Docente: Orlando Isaac Aguilera Zambrana · UPDS Tarija
 
 ---
