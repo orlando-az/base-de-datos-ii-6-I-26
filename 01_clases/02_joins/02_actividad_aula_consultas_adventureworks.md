@@ -368,7 +368,25 @@ ORDER BY total_venta desc
 **Tablas:** purchasing.purchaseorderheader, purchasing.vendor, purchasing.purchaseorderdetail, production.product, production.productsubcategory, production.productcategory
 
 ```sql
--- Escribir consulta aquí
+SELECT v."name" AS razonsocial,
+poh.purchaseorderid ,
+p.name AS producto,
+psc.name AS subcategoria,
+pc.name AS categoria,
+(pod.orderqty * pod.unitprice) monto_linea
+FROM purchasing.vendor v
+INNER JOIN purchasing.purchaseorderheader poh
+ON poh.vendorid = v.businessentityid
+INNER JOIN purchasing.purchaseorderdetail pod
+ON poh.purchaseorderid = pod.purchaseorderid
+INNER JOIN production.product p
+ON p.productid = pod.productid
+INNER JOIN production.productsubcategory psc
+ON psc.productsubcategoryid = p.productsubcategoryid
+INNER JOIN production.productcategory pc
+ON pc.productcategoryid = psc.productcategoryid
+WHERE poh.status = 4 AND
+(pod.orderqty * pod.unitprice )>1000
 ```
 
 ### Ejercicio 12 — Clientes destacados, segundo nivel
