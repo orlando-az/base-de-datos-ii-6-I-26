@@ -447,5 +447,19 @@ ON psc.productcategoryid = pc.productcategoryid
 **Tablas:** sales.salesorderheader
 
 ```sql
--- Escribir consulta aquí
+SELECT
+    CASE
+        WHEN shipdate IS NULL THEN 'Pendiente de envío'
+        WHEN shipdate <= duedate THEN 'A tiempo'
+        ELSE 'Retrasado'
+    END AS estado_entrega,
+    COUNT(*) AS cantidad_ordenes
+FROM sales.salesorderheader
+GROUP BY
+    CASE
+        WHEN shipdate IS NULL THEN 'Pendiente de envío'
+        WHEN shipdate <= duedate THEN 'A tiempo'
+        ELSE 'Retrasado'
+    END
+ORDER BY cantidad_ordenes DESC;
 ```
