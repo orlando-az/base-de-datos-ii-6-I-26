@@ -396,7 +396,16 @@ WHERE poh.status = 4 AND
 **Tablas:** sales.customer, sales.salesorderheader, person.person, sales.salesterritory
 
 ```sql
--- Escribir consulta aquí
+SELECT p.firstname || ' ' || p.lastname  AS nombrecompleto
+, SUM(soh.totaldue) AS total
+FROM person.person p
+INNER JOIN sales.customer c
+ON C.customerid = P.businessentityid
+INNER JOIN sales.salesorderheader soh
+ON soh.customerid = c.customerid
+GROUP BY p.firstname || ' ' || p.lastname
+ORDER by total DESC
+LIMIT 10 OFFSET 5
 ```
 
 ### Ejercicio 13 — Vendedores, territorio y desempeño
@@ -416,7 +425,19 @@ WHERE poh.status = 4 AND
 **Tablas:** production.product, production.productsubcategory, production.productcategory
 
 ```sql
--- Escribir consulta aquí
+SELECT p."name" AS producto,
+pc."name" AS categoria ,
+p.listprice  AS precio,
+CASE
+	WHEN p.listprice < 100 THEN 'Economico'
+	WHEN p.listprice BETWEEN 100 AND 500 THEN 'ESTANDAR'
+	WHEN p.listprice > 500 THEN 'PREMIUM'
+END AS clasificacion
+FROM production.product p
+INNER JOIN production.productsubcategory psc
+ON psc.productsubcategoryid = p.productsubcategoryid
+INNER JOIN production.productcategory pc
+ON psc.productcategoryid = pc.productcategoryid
 ```
 
 ## Ejercicio 15 — Estado de cumplimiento de entrega por orden
