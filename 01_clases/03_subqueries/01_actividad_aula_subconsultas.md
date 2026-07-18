@@ -212,7 +212,24 @@ FROM production.product p
 El área comercial necesita evaluar qué productos están por encima o por debajo del precio promedio del catálogo. Obtén el nombre, el precio de lista, el promedio general, la diferencia entre ambos y una clasificación que indique si el producto es "Superior" o "Menor" respecto al promedio. Considera únicamente productos con precio de lista mayor a cero, ordenados por la diferencia de mayor a menor.
 
 ```sql
-
+SELECT p."name" ,p.listprice
+,(SELECT ROUND(AVG(pp.listprice ),2)
+FROM production.product pp
+WHERE pp.listprice >0
+) AS promedio,
+(p.listprice - (SELECT ROUND(AVG(pp.listprice ),2)
+FROM production.product pp
+WHERE pp.listprice >0
+)) AS diferencia,
+CASE
+	WHEN p.listprice >
+	(SELECT ROUND(AVG(pp.listprice ),2) FROM production.product pp
+WHERE pp.listprice >0
+) THEN 'Superior' ELSE 'Menor'
+END
+FROM production.product p
+WHERE p.listprice >0
+ORDER BY p.listprice desc
 ```
 
 ---
