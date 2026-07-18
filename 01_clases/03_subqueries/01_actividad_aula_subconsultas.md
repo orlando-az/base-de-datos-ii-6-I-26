@@ -185,6 +185,28 @@ A partir de ese mismo promedio, se requiere identificar los productos considerad
 
 ---
 
+**Ejercicio Intermedio**
+
+Valor promedio de los productos, valor máximo y valor mínimo
+
+```sql
+SELECT AVG(p.listprice ) AS promedio,
+(
+SELECT MAX(pma.listprice ) FROM production.product pma
+) AS precio_maximo,
+(
+SELECT MIN(pmi.listprice ) FROM production.product pmi
+WHERE pmi.listprice >0
+) AS precio_minimo
+FROM production.product p
+WHERE p.listprice >0
+
+SELECT AVG(p.listprice),max(p.listprice ),MIN(p.listprice)
+FROM production.product p
+```
+
+---
+
 **Ejercicio 2**
 
 El área comercial necesita evaluar qué productos están por encima o por debajo del precio promedio del catálogo. Obtén el nombre, el precio de lista, el promedio general, la diferencia entre ambos y una clasificación que indique si el producto es "Superior" o "Menor" respecto al promedio. Considera únicamente productos con precio de lista mayor a cero, ordenados por la diferencia de mayor a menor.
