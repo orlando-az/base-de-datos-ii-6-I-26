@@ -1,64 +1,54 @@
-# Base de Datos II (SIS-0126) — CTEs (Common Table Expressions)
+# Common Table Expressions (CTEs) — AdventureWorks (PostgreSQL)
 
-**Tema:** Expresiones de tabla comunes (`WITH`)
+**Base de Datos II — SIS-0126**
+Bloque 2 — Consultas y Manipulación de Datos
+Docente: Orlando Isaac Aguilera Zambrana · UPDS Tarija
 
 ---
 
-## Ejercicio 1 — Meses por encima del promedio anual
+## Ejercicio 1 — Meses con ventas por encima del promedio de su propio año
 
-Orden: La gerencia quiere identificar los meses que vendieron por encima del promedio de su propio año. Calculá el total vendido por mes y compará cada mes contra el promedio de los meses de ese mismo año. Mostrá año, mes y monto de los meses que superen ese promedio, ordenados por año y monto descendente.
-
-**Tablas:** sales.salesorderheader
+**Orden:** La gerencia quiere identificar los meses que vendieron por encima del promedio de su propio año. Calculá el total vendido por mes y compará cada mes contra el promedio de los meses de ese mismo año. Mostrá año, mes y monto de los meses que superen ese promedio, ordenados por año y monto descendente.
 
 ```sql
 -- Escribe tu consulta aquí
 ```
 
-## Ejercicio 2 — Antigüedad de empleados activos
+---
 
-Orden: Recursos Humanos necesita un listado de los empleados que aún se encuentran activos (asignación vigente, sin fecha de finalización). Mostrá su identificador, la fecha de inicio y la cantidad de días trabajados hasta la fecha actual, ordenados de mayor a menor antigüedad.
+## Ejercicio 2 — Primer y último pedido de cada cliente
 
-**Tablas:** humanresources.employeedepartmenthistory
-
-```sql
--- Escribe tu consulta aquí
-```
-
-## Ejercicio 3 — Clientes por encima del gasto promedio
-
-Orden: Se quiere comparar el gasto de cada cliente contra el promedio general de gasto. Calculá el monto total comprado por cada cliente y listá únicamente aquellos cuyo gasto total supere el promedio general, mostrando nombre completo y monto.
-
-**Tablas:** sales.salesorderheader, sales.customer, person.person
+**Orden:** Ventas quiere saber cuánto tiempo lleva cada cliente activo en la plataforma. Mostrar cliente, fecha de su primer pedido, fecha de su último pedido y la cantidad de días transcurridos entre ambos.
 
 ```sql
 -- Escribe tu consulta aquí
 ```
 
-## Ejercicio 4 — Vendedores contra su cuota
+---
 
-Orden: El área de ventas quiere comparar el desempeño de cada vendedor contra su cuota asignada. Calculá el monto total vendido por cada vendedor y mostrá su nombre, el monto vendido, su cuota de ventas y la diferencia entre ambos. Considerá solo las órdenes que tienen vendedor asignado.
+## Ejercicio 3 — Introducción a Ranking: Top 3 productos más vendidos por categoría
 
-**Tablas:** sales.salesorderheader, sales.salesperson, person.person
-
-```sql
--- Escribe tu consulta aquí
-```
-
-## Ejercicio 5 — Top 3 productos por subcategoría
-
-Orden: Se necesita el top 3 de productos más vendidos dentro de cada subcategoría. Calculá la cantidad vendida por producto y su posición dentro de su subcategoría según esa cantidad, de mayor a menor. Mostrá únicamente los productos cuya posición sea menor o igual a 3, con nombre del producto, subcategoría, cantidad vendida y posición.
-
-**Tablas:** sales.salesorderdetail, production.product, production.productsubcategory
+**Orden:** El área comercial quiere ver, dentro de cada categoría, cuáles son los 3 productos con mayor cantidad vendida. Mostrar el nombre del producto, la categoría, la cantidad total vendida y la posición que ocupa dentro de su categoría.
 
 ```sql
 -- Escribe tu consulta aquí
 ```
 
-## Ejercicio 6 — Vendedores por encima del promedio de su territorio
+---
 
-Orden: La dirección comercial quiere saber qué vendedores rinden por encima del promedio de su propio territorio. Calculá el monto total vendido por cada vendedor junto a su territorio y el promedio de ventas de ese territorio. Mostrá el territorio, el nombre del vendedor, su monto vendido y el promedio del territorio, listando únicamente a los vendedores cuyo monto supere ese promedio.
+## Ejercicio 4 — Brecha con el líder de ventas por categoría
 
-**Tablas:** sales.salesorderheader, sales.salesperson, sales.salesterritory, person.person
+**Orden:** El área comercial quiere medir qué tan lejos está cada producto del líder de ventas dentro de su categoría. Mostrar el nombre del producto, su categoría, la cantidad total vendida y la diferencia respecto al producto más vendido de esa misma categoría. Ordenar por categoría y luego por la diferencia ascendente (los más cercanos al líder primero).
+
+```sql
+-- Escribe tu consulta aquí
+```
+
+---
+
+## Ejercicio 5 — Productos que subieron de precio en el último año
+
+**Orden:** El área comercial quiere identificar qué productos tuvieron un aumento de precio en el último año. Mostrar el nombre del producto, el precio de hace un año, el precio actual y la diferencia entre ambos, únicamente para los productos cuyo precio haya aumentado.
 
 ```sql
 -- Escribe tu consulta aquí
