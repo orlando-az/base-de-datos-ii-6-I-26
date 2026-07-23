@@ -11,7 +11,29 @@ Docente: Orlando Isaac Aguilera Zambrana · UPDS Tarija
 **Orden:** La gerencia quiere identificar los meses que vendieron por encima del promedio de su propio año. Calculá el total vendido por mes y compará cada mes contra el promedio de los meses de ese mismo año. Mostrá año, mes y monto de los meses que superen ese promedio, ordenados por año y monto descendente.
 
 ```sql
--- Escribe tu consulta aquí
+WITH ventas_mes AS (
+SELECT EXTRACT(YEAR FROM soh.orderdate) AS anio ,
+		EXTRACT(MONTH FROM soh.orderdate) AS mes,
+		ROUND(sum(soh.totaldue),2) AS total
+FROM sales.salesorderheader soh
+GROUP BY anio,mes
+ORDER BY anio,mes
+),
+promedio AS (
+SELECT vm.anio, ROUND(AVG(vm.total),2) AS promedio
+FROM ventas_mes vm
+GROUP BY vm.anio
+)
+SELECT
+vm.anio,
+vm.mes ,
+vm.total ,
+		p.promedio
+FROM ventas_mes vm
+INNER JOIN promedio p
+ON vm.anio = p.anio
+WHERE vm.total > p.promedio
+
 ```
 
 ---
@@ -21,7 +43,20 @@ Docente: Orlando Isaac Aguilera Zambrana · UPDS Tarija
 **Orden:** Ventas quiere saber cuánto tiempo lleva cada cliente activo en la plataforma. Mostrar cliente, fecha de su primer pedido, fecha de su último pedido y la cantidad de días transcurridos entre ambos.
 
 ```sql
--- Escribe tu consulta aquí
+WITH fechas_venta AS (
+SELECT soh.customerid ,
+	MIN(soh.orderdate)::DATE AS fecha_min,
+	MAX(soh.orderdate)::DATE AS fecha_max
+	FROM sales.salesorderheader soh
+	GROUP BY soh.customerid
+	ORDER BY 1
+)
+SELECT p.firstname , p.lastname , fv.fecha_min ,fv.fecha_max
+FROM sales.customer c
+INNER JOIN person.person p
+ON c.personid = p.businessentityid
+INNER JOIN fechas_venta fv
+ON c.customerid = fv.customerid ;
 ```
 
 ---
