@@ -65,6 +65,18 @@ ON c.customerid = fv.customerid ;
 
 **Orden:** El área comercial quiere ver, dentro de cada categoría, cuáles son los 3 productos con mayor cantidad vendida. Mostrar el nombre del producto, la categoría, la cantidad total vendida y la posición que ocupa dentro de su categoría.
 
+| Función        | Empates      | Salto de posición | Secuencia ejemplo |
+| -------------- | ------------ | ----------------- | ----------------- |
+| `ROW_NUMBER()` | Nunca empata | No aplica         | 1, 2, 3, 4        |
+| `RANK()`       | Sí empata    | Sí salta          | 1, 2, 2, 4        |
+| `DENSE_RANK()` | Sí empata    | No salta          | 1, 2, 2, 3        |
+
+**¿Cuándo usar cada una?**
+
+- `ROW_NUMBER` → cuando se necesita exactamente N filas sin repetición (paginación, deduplicación).
+- `RANK` → rankings deportivos o comerciales donde el empate "ocupa" las posiciones siguientes.
+- `DENSE_RANK` → rankings donde se quiere continuidad numérica aunque haya empates.
+
 ```sql
 -- Escribe tu consulta aquí
 ```
