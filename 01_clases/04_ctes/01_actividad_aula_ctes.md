@@ -51,7 +51,8 @@ SELECT soh.customerid ,
 	GROUP BY soh.customerid
 	ORDER BY 1
 )
-SELECT p.firstname , p.lastname , fv.fecha_min ,fv.fecha_max
+SELECT p.firstname , p.lastname , fv.fecha_min ,fv.fecha_max,
+(fv.fecha_max - fv.fecha_min ) AS dias
 FROM sales.customer c
 INNER JOIN person.person p
 ON c.personid = p.businessentityid
