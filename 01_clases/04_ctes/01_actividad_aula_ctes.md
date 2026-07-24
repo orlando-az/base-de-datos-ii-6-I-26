@@ -79,7 +79,26 @@ ON c.customerid = fv.customerid ;
 - `DENSE_RANK` → rankings donde se quiere continuidad numérica aunque haya empates.
 
 ```sql
--- Escribe tu consulta aquí
+WITH producto_cantidad AS (
+SELECT p."name" AS producto , psc."name" AS subcategoria ,
+pc. name AS categoria ,sum( sod.orderqty) AS cantidad
+FROM production.product p
+INNER JOIN productsubcategory psc
+ON p.productsubcategoryid = psc.productsubcategoryid
+INNER JOIN production.productcategory pc
+ON psc.productcategoryid = pc.productcategoryid
+INNER JOIN sales.salesorderdetail sod
+ON p.productid = sod.productid
+GROUP BY  p.name, psc."name" , pc."name"
+),
+ranking AS  (
+SELECT * ,
+RANK() OVER(PARTITION BY categoria ORDER BY cantidad DESC) AS posicion
+FROM producto_cantidad
+)
+SELECT *
+FROM ranking
+WHERE  posicion <=3
 ```
 
 ---
